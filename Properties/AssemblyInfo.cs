@@ -9,12 +9,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Microsoft Kinect Studio Tools 2.0")]
+[assembly: AssemblyTitle("Kinect2 Tools")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("id144")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("CC BY-SA 2.0")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Kinect2 Tools")]
+[assembly: AssemblyCopyright("CC BY-SA 4.0")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,4 +28,4 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("0.9.*")]
+[assembly: AssemblyVersion("1.0.*")]

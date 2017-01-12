@@ -14,7 +14,7 @@ using Microsoft.Kinect.Tools;
 
 #endregion usings
 
-namespace VVVV.Nodes  
+namespace VVVV.Kinect2Tools.Nodes  
 {
 	#region PluginInfo
 	[PluginInfo(Name = "Record",
@@ -25,7 +25,7 @@ namespace VVVV.Nodes
 				Tags = "")]
 	#endregion PluginInfo
 	
-	public class Kinect2RecordNode : IPluginEvaluate
+	public class Kinect2ToolsRecordNode : IPluginEvaluate
 	{
 		#region fields & pins 
 		[Input("Record", DefaultValue = 0.0, IsToggle=true)]
@@ -70,30 +70,30 @@ namespace VVVV.Nodes
 		private KStudioRecording recording = null;
 		private uint recordingBufferSizeMB;
 		
-		public Kinect2RecordNode()
+		public Kinect2ToolsRecordNode()
 		{
 
 		}
 		public void Evaluate(int SpreadMax)
 		{          
-            if (FInputRecord.IsChanged)
-            {
-                if (FInputRecord[0])
-                {
-                    string xefFilePath = @FInputFilename[0];
+          if (FInputRecord.IsChanged)
+          {
+              if (FInputRecord[0])
+              {
+                  string xefFilePath = @FInputFilename[0];
 
-                    if (!string.IsNullOrEmpty(xefFilePath))
-                    {		
-                    	doRecord = true;
-                        OneArgDelegate recording = new OneArgDelegate(this.RecordClip);
-			            recording.BeginInvoke(xefFilePath, null, null);
-                    }                	
-                }
-            	else
-            	{
-            		StopRecording();
-            	}
-            }
+                  if (!string.IsNullOrEmpty(xefFilePath))
+                  {		
+                  	doRecord = true;
+                      OneArgDelegate recording = new OneArgDelegate(this.RecordClip);
+		            recording.BeginInvoke(xefFilePath, null, null);
+                  }                	
+              }
+          	else
+          	{
+          		StopRecording();
+          	}
+          }
 		}
 
         private void RecordClip(string filePath)
@@ -107,7 +107,7 @@ namespace VVVV.Nodes
                 if (FInputIRStream[0]) streamCollection.Add(KStudioEventStreamDataTypeIds.Ir);
                 if (FInputDepthStream[0]) streamCollection.Add(KStudioEventStreamDataTypeIds.Depth);
                 streamCollection.Add(KStudioEventStreamDataTypeIds.Body);
-                streamCollection.Add(KStudioEventStreamDataTypeIds.BodyIndex);
+                streamCollection.Add(KStudioEventStreamDataTypeIds.BodyIndex);           	
                 if (FInputRGBStream[0]) streamCollection.Add(KStudioEventStreamDataTypeIds.UncompressedColor);
 
         		recordingBufferSizeMB = (uint)FInputRecordingBufferSizeMB[0];
@@ -122,7 +122,9 @@ namespace VVVV.Nodes
 	            	
 	                while ((recording.State == KStudioRecordingState.Recording) && (doRecord))
 	                {
-	                    Thread.Sleep(50);
+	                    Thread.Sleep(100);
+	                	//recording reports no values :(
+	                	FRecordBufferInUseSizeMegabytes[0] = recording.BufferInUseSizeMegabytes;
 	                }
 	                recording.Stop();
 
